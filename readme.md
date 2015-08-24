@@ -10,7 +10,7 @@ QuickServicePub WILL:
 
 QuickServicePub WILL NOT:
 
-* Publish a service project for the first time
+* Install a new service on the server
 * Pull projects from source
 * Build projects
 * Overwrite configuration files in the \configs directory
