@@ -1,0 +1,37 @@
+TOPIC
+    about_QuickServicePub
+
+SHORT DESCRIPTION
+    Allows a developer to quickly publish services to the developer's application/web server.
+
+LONG DESCRIPTION
+    Allows a developer to quickly publish services to the developer's application/web server.
+
+    QuickServicePub WILL:
+
+    * Update a service that has already been published and configured (either manually or by Chef)
+    * Clean up old server files, including deleting log files
+    * Copy binaries and other service files from the developer's machine to the server
+    * Stop and restart window services, as necessary
+
+    QuickServicePub WILL NOT:
+    * Publish a service project for the first time
+    * Pull projects from source
+    * Build projects
+    * Overwrite configuration files in the \configs directory
+
+EXAMPLES
+    After installing QuickServicePub:
+
+    * Copy "QuickServicePub.config.template.json" to "QuickServicePub.config.json"
+    * Update "QuickServicePub.config.json" with your environment values
+    * Add additional repo or project definitions to "QuickServicePub.config.json"
+
+    To publish:
+
+    * Pull service repo from GIT, if necessary
+    * Build solution
+    * Use QuickServicePub to either
+      - Publish all projects in a repository: Publish-ServiceRepo <repository name>
+      - Publish a single project: Publish-ServiceProject <project name>
+

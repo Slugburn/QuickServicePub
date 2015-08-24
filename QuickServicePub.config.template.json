@@ -1,0 +1,27 @@
+{
+    "environment" : {
+        "sourceRoot":"<the local GIT root directory>",
+        "webServiceRoot":"<the web server's web root>",
+        "winServiceRoot":"<the app server's service application root>",
+        "winServiceHostName":"<the app server's name>"
+        },
+    "repos":[
+        { "repoName":"Axiom.Services","projects":[ 
+            {"projectName":"PPA.Axiom.Services","type":"web","destination":"AxiomService"} ]},
+        { "repoName":"Edison.Services","projects":[
+            {"projectName":"PPA.Edison.WcfService.BenchmarkData","type":"web","destination":"BenchmarkService"},
+            {"projectName":"PPA.Edison.WcfService.MarketData","type":"web","destination":"EdisonMarketDataService"},
+            {"projectName":"PPA.Edison.WcfService.RiskData","type":"web","destination":"EdisonRiskDataService"} ]},
+        { "repoName":"Edison.WebApi","projects":[ 
+            {"projectName":"Edison.WebApi","type":"web","destination":"EdisonWeb"} ]},
+        { "repoName":"Phoenix", "projects":[ 
+            {"projectName":"PPA.Phoenix.TopShelf.ScenarioPosting","type":"win","destination":"PhoenixScenarioPosting","binPath":"bin/debug","serviceName":"PPA.Phoenix.ScenarioPosting"},
+            {"projectName":"PPA.Phoenix.WebApi","type":"web","destination":"PhoenixWebApi"} ]},
+        { "repoName":"TradeDesk.Services","projects":[ 
+            {"projectName":"PPA.TradeDesk.Services","type":"web","destination":"TradeDeskService"} ]},
+        { "repoName":"Verona.Services","projects":[
+            {"projectName":"PPA.Verona.Web","type":"web","destination":"VeronaWebService"},
+            {"projectName":"PPA.Verona.WcfService.Reports","type":"web","destination":"VeronaReportsService"},
+            {"projectName":"PPA.Verona.Service","type":"win","destination":"VeronaService","binPath":"bin/x86/debug","serviceName":"PPA.Verona.Service"} ]} 
+        ]
+}
