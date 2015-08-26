@@ -1,5 +1,5 @@
 # QuickServicePub
-Allows a developer to quickly publish services to the developer's application/web server.
+Allows a developer to quickly publish services to their application/web server.
 
 QuickServicePub **WILL**:
 
@@ -45,7 +45,7 @@ To publish:
     * type: The service project type, either **web** or **win**
     * destination: The directory under the root service directory where the service is installed
     * binPath: For Windows services, the relative path from the project directory for the service binary directory
-    * serviceName: For Window services, the name the service runs under
+    * serviceName: For Window services, the service name
 
 ### QuickServicePub.config.json Example
 
