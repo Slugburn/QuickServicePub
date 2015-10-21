@@ -76,6 +76,9 @@ function deploy-web-service (
     $destination,
 
     [String]
+    $binPath,
+	
+    [String]
     [ValidateNotNullOrEmpty()]
     $sourceRoot,
 
@@ -83,7 +86,9 @@ function deploy-web-service (
     [ValidateNotNullOrEmpty()]
     $webServiceRoot ) 
 {
+    $binPath = if ($binPath) {$binPath} else {'\bin'}
     $sourceDir = join-path (join-path $sourceRoot $repoName) $projectName
+    $binDir = join-path $sourceDir $binPath
     $destinationDir = join-path $webServiceRoot $destination
     echo "`tCopying web files from $sourceDir to $destinationDir"
     copy-item (join-path $sourceDir '*.svc') $destinationDir -Force
@@ -93,9 +98,9 @@ function deploy-web-service (
     remove-item (join-path $destinationDir 'bin\*.*')
     echo "`tCleaning log files from $destinationDir"
     remove-item (join-path $destinationDir '*log*.txt')
-    echo "`tCopying files from $(join-path $sourceDir '\bin') to $(join-path $destinationDir '\bin')"
-    copy-item (join-path $sourceDir 'bin\*.dll') (join-path $destinationDir '\bin')
-    copy-item (join-path $sourceDir 'bin\*.xml') (join-path $destinationDir '\xml')
+    echo "`tCopying files from $binDir to $(join-path $destinationDir '\bin')"
+    copy-item (join-path $binDir '*.dll') (join-path $destinationDir '\bin')
+    copy-item (join-path $binDir '*.xml') (join-path $destinationDir '\bin')
 }
 
 function deploy-project (
@@ -116,7 +121,7 @@ function deploy-project (
 {
     echo "Deploying project: $projectName"
     switch ($projectType) {
-        "web" { deploy-web-service $repoName $projectName $project.destination $environment.sourceRoot $environment.webServiceRoot }
+        "web" { deploy-web-service $repoName $projectName $project.destination $project.binPath $environment.sourceRoot $environment.webServiceRoot }
         "win" { deploy-win-service $repoName $projectName $project.destination $project.binPath $project.serviceName $environment.sourceRoot `
                 $environment.winServiceRoot $environment.winServiceHostName }
     }
