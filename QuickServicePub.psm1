@@ -103,6 +103,30 @@ function deploy-web-service (
     copy-item (join-path $binDir '*.xml') (join-path $destinationDir '\bin')
 }
 
+function deploy-octopus-web (
+    [String]
+    [ValidateNotNullOrEmpty()]
+    $repoName,
+
+    [String]
+    [ValidateNotNullOrEmpty()]
+    $projectName,
+
+    [String]
+    [ValidateNotNullOrEmpty()]
+    $sourceRoot,
+
+    [String]
+    [ValidateNotNullOrEmpty()]
+    $octopusRoot ) 
+{
+    $destinationDir = join-path $octopusRoot $projectName
+    $destinationDir = (Get-ChildItem $destinationDir | ?{ $_.PsIsContainer } | Select-Object -Last 1).FullName
+	echo "`tIdentified Octopus version directory: $destinationDir"
+
+	deploy-web-service $repoName $projectName -sourceRoot $sourceRoot -webServiceRoot $destinationDir
+}
+
 function deploy-project (
     [String]
     [ValidateNotNullOrEmpty()]
@@ -113,7 +137,7 @@ function deploy-project (
     $projectName,
 
     [String]
-    [ValidateSet("web","win")] 
+    [ValidateSet("web","win","octopusWeb")] 
     $projectType,
 
     $project
@@ -121,6 +145,7 @@ function deploy-project (
 {
     echo "Deploying project: $projectName"
     switch ($projectType) {
+		"octopusWeb" { deploy-octopus-web $repoName $projectName $environment.sourceRoot $environment.octopusRoot}
         "web" { deploy-web-service $repoName $projectName $project.destination $project.binPath $environment.sourceRoot $environment.webServiceRoot }
         "win" { deploy-win-service $repoName $projectName $project.destination $project.binPath $project.serviceName $environment.sourceRoot `
                 $environment.winServiceRoot $environment.winServiceHostName }
